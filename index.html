@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VideoMentah.id</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b0b0b;color:#f2f2f2;font-family:'Inter',sans-serif;}
+header{text-align:center;padding:28px 20px}
+.logo-img{width:150px;margin-bottom:12px;}
+.tagline{display:block;font-size:18px !important;color:#bdbdbd;letter-spacing:1px;margin-top:6px;font-weight:400;}
+.section{max-width:640px;margin:auto;padding:32px 20px}
+h2{font-size:13px;color:#c9a85c;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+select,input{width:100%;background:#111;border:1px solid #222;padding:14px;border-radius:10px;color:#eee;margin-bottom:18px;}
+.box{background:#111;border:1px solid #1f1f1f;border-radius:14px;padding:20px;margin-top:20px;}
+.price{font-family:'Playfair Display',serif;font-size:26px;text-align:center;margin-top:12px;}
+.btn{display:block;text-align:center;padding:14px;background:#c9a85c;color:#000;border-radius:30px;text-decoration:none;font-weight:500;margin-top:20px;opacity:.4;pointer-events:none;}
+.btn.active{opacity:1;pointer-events:auto;}
+.desc{font-size:13px;color:#aaa;margin-top:-10px;margin-bottom:16px;}
+.hero{padding:48px 20px 36px;text-align:center;max-width:680px;margin:auto;}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;line-height:1.3;margin-bottom:16px;}
+.hero p{font-size:15px;color:#b5b5b5;line-height:1.6;}
+pre{white-space: pre-wrap;word-wrap: break-word;overflow-wrap: break-word;font-size:13px;line-height:1.6;}
+.hero-actions{display:flex;gap:12px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;}
+.btn.secondary{background:#111;color:#c9a85c;border:1px solid #2a2a2a;opacity:1;pointer-events:auto;}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo.png" class="logo-img">
+  <div class="tagline">Jasa video affiliate</div>
+</header>
+
+<section class="hero">
+  <h1>VIDEO ORIGINAL<br>UNTUK KONTEN TikTok🔥AFFILIATE🔥</h1>
+  <p>Video mentah premium, untuk kamu yang ingin buat konten tapi malas bikin video & gak ada waktu,<br>No copyright</p>
+  <div style="display:flex;gap:12px;justify-content:center;margin-top:20px">
+    <a href="contoh-produk.html" class="btn active" style="width:48%">📸 Contoh Produk</a>
+    <a href="contoh-video.html" class="btn active" style="width:48%">🎬 Contoh Video</a>
+  </div>
+  <a href="#order" class="btn active">Buat Video</a>
+</section>
+
+<section id="order" class="section">
+
+<h2>Niche</h2>
+<select id="niche"></select>
+
+<h2>Produk</h2>
+<select id="product"></select>
+<div id="productDesc" class="desc"></div>
+
+<h2>Tipe Shoot</h2>
+<select id="shoot"></select>
+
+<h2>Background Video</h2>
+<select id="bg"></select>
+<div style="margin-bottom:18px;text-align:center">
+  <img id="bgPreview" src="" style="width:120px;height:auto;border-radius:10px;border:1px solid #222;">
+</div>
+
+<h2>Durasi</h2>
+<select id="duration"></select>
+
+<h2>Jumlah Video</h2>
+<select id="qty"></select>
+
+<h2>Pengiriman Video Melalui</h2>
+<select id="delivery"></select>
+
+<input id="contact" placeholder="no hp/username/id">
+
+<div class="box">
+  <h2>Ringkasan Order</h2>
+  <pre id="summary"></pre>
+  <div class="price" id="price">Rp 0</div>
+</div>
+
+<div class="box">
+  <h2>Pembayaran</h2>
+  <p style="font-size:13px;color:#aaa">Scan QRIS di bawah ini sesuai total pembayaran.</p>
+  <img src="qris.png" style="width:100%;border-radius:12px;margin:12px 0">
+  <label style="font-size:13px">
+    <input type="checkbox" id="paid"> Saya sudah bayar
+  </label>
+</div>
+
+<a id="sendTelegram" class="btn" target="_blank">Konfirmasi ke Admin</a>
+
+</section>
+
+<script>
+// ==== DATA MODULAR ====
+const data = {
+  niches: {
+    "Skincare": [
+      {name:"MenYou", desc:"1 paket basic skincare,(facewash,serum,sunscreen)"},
+      {name:"Cogan facewash", desc:"1 paket (facewash isi 2 produk)"},
+		{name:"Clorismen", desc:"1 paket basic skincare isi 4 produk)"},
+      {name:"Hauff", desc:"1 paket basic skincare (facewash,serum,sunscreen)"}
+    ]
+  },
+  shoots: [
+    {name:"Video goyang-goyang(mute🔇)", price:1000},
+    {name:"Video goyang-goyang(hard selling/bicara🗣️)", price:2000},
+    {name:"Video goyang-goyang (AI mute🔇)", price:1000},
+	 {name:"Video goyang-goyang(Ai/bicara🗣️)", price:2000},
+	 {name:"Video promosi figur(AI🗣️)", price:10000},
+    {name:"Video promosi figur(Model💁🏻‍♀️Manusia)", price:20000}
+  ],
+  backgrounds: [
+    {name:"Gambar 1", img:"background1.jpg"},
+    {name:"Gambar 2", img:"background2.jpg"},
+    {name:"Gambar 3", img:"background3.jpg"},
+	 {name:"Gambar 3", img:"background4.jpg"},
+    {name:"Custom (sesuai request)", img:""}
+  ],
+  durations: [
+    {name:"15 Detik", value:1},
+    {name:"30 Detik", value:2},
+    {name:"1 Menit", value:4}
+  ],
+  quantities: [10,20,30,50],
+  deliveries: ["WhatsApp","Telegram","Google Drive"]
+};
+
+// ==== ELEMENTS ====
+const nicheEl = document.getElementById("niche");
+const productEl = document.getElementById("product");
+const productDesc = document.getElementById("productDesc");
+const shootEl = document.getElementById("shoot");
+const bgEl = document.getElementById("bg");
+const bgPreview = document.getElementById("bgPreview");
+const durationEl = document.getElementById("duration");
+const qtyEl = document.getElementById("qty");
+const deliveryEl = document.getElementById("delivery");
+const contactEl = document.getElementById("contact");
+const paidEl = document.getElementById("paid");
+const summaryEl = document.getElementById("summary");
+const priceEl = document.getElementById("price");
+const btn = document.getElementById("sendTelegram");
+
+// ==== UTILITY ====
+function renderSelect(el, items, prop="name"){
+  el.innerHTML="";
+  items.forEach(item=>{
+    const o = document.createElement("option");
+    if(typeof item==="object"){
+      o.text = item[prop];
+      o.value = item[prop]; // gunakan nama untuk value agar niche mapping benar
+    }else{
+      o.text = item;
+      o.value = item;
+    }
+    el.add(o);
+  });
+}
+
+function rupiah(n){ return "Rp " + n.toLocaleString("id-ID"); }
+
+// ==== INITIAL RENDER ====
+renderSelect(nicheEl, Object.keys(data.niches));
+renderSelect(shootEl, data.shoots);
+renderSelect(bgEl, data.backgrounds);
+renderSelect(durationEl, data.durations,"name");
+renderSelect(qtyEl, data.quantities);
+renderSelect(deliveryEl, data.deliveries);
+
+// ==== LOAD PRODUK ====
+function loadProducts(){
+  const products = data.niches[nicheEl.value]; // value = "Skincare"
+  renderSelect(productEl, products,"name");
+  productDesc.innerText = products[0].desc;
+  updateSummary();
+}
+
+// ==== UPDATE SUMMARY ====
+function updateSummary(){
+  const selectedNiche = nicheEl.value;
+  const products = data.niches[selectedNiche];
+  const productIndex = productEl.selectedIndex;
+  const shootIndex = shootEl.selectedIndex;
+  const bgIndex = bgEl.selectedIndex;
+  const durIndex = durationEl.selectedIndex;
+  const qty = Number(qtyEl.value);
+
+  const selectedProduct = products[productIndex];
+  const selectedShoot = data.shoots[shootIndex];
+  const selectedBg = data.backgrounds[bgIndex];
+  const selectedDur = data.durations[durIndex];
+
+  const total = Math.max(selectedShoot.price * selectedDur.value * qty, 1000);
+
+  productDesc.innerText = selectedProduct.desc;
+  priceEl.innerText = rupiah(total);
+
+  // Background preview
+  if(selectedBg.img){
+    bgPreview.src = selectedBg.img;
+    bgPreview.style.display = "block";
+  } else bgPreview.style.display = "none";
+
+  const text=`📦 ORDER VIDEOMENTAH.ID
+
+Niche       : ${selectedNiche}
+Type        : ${selectedShoot.name}
+Background  : ${selectedBg.name}
+Durasi      : ${selectedDur.name}
+Jumlah      : ${qty} Video
+
+Produk      : ${selectedProduct.name}
+Detail      : ${selectedProduct.desc}
+Harga / Video : ${rupiah(selectedShoot.price * selectedDur.value)}
+
+Pengiriman : ${deliveryEl.value}
+Kontak     : ${contactEl.value}
+
+Total      : ${rupiah(total)}
+Status     : SUDAH BAYAR`;
+
+  summaryEl.innerText = text;
+
+  if(contactEl.value.trim() && paidEl.checked){
+    btn.classList.add("active");
+    btn.href="https://t.me/sudanaswatt?text="+encodeURIComponent(text);
+  }else{
+    btn.classList.remove("active");
+    btn.removeAttribute("href");
+  }
+}
+
+// ==== EVENT LISTENER ====
+[nicheEl, productEl, shootEl, bgEl, durationEl, qtyEl, deliveryEl, contactEl, paidEl].forEach(el=>{
+  el.addEventListener("change", updateSummary);
+  el.addEventListener("keyup", updateSummary);
+});
+
+// ==== INIT ====
+loadProducts();
+</script>
+
+</body>
+</html>
